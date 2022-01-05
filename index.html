@@ -8,6 +8,12 @@
     <title>Document</title>
 </head>
 <body>
+<div>
+    <h1>Request Gyroscope Permission</h1><br/>
+    Click 'yes' to access Gyroscope Data <br/>
+    <input id="btn1" type="button" onclick="test();" value="Yes"/>
+</div>
+<br/><br/>
 Gyro sensor<br/>
 <span id="gyro-error-message"></span><br/>
 alpha:<span id="alpha"></span><br/>
@@ -21,6 +27,25 @@ y:<span id="y-acc"></span><br/>
 z:<span id="z-acc"></span><br/>
 </body>
 <script>
+    function test(){
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission()
+                .then(permissionState => {
+                    if (permissionState === 'granted') {
+                        // handle data
+                    } else {
+                        // handle denied
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        } else {
+            // han
+            console.log(typeof DeviceOrientationEvent)
+        }
+    }
+
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function (event) {
             var a = document.getElementById('alpha'),
@@ -29,11 +54,11 @@ z:<span id="z-acc"></span><br/>
                 alpha = event.alpha,
                 beta = event.beta,
                 gamma = event.gamma;
- 
+
             a.innerHTML = Math.round(alpha);
             b.innerHTML = Math.round(beta);
             g.innerHTML = Math.round(gamma);
-        
+
         }, false);
     } else {
         document.getElementById('gyro-error-message').innerHTML = 'ジャイロセンサーのデータを取得できません';
@@ -50,11 +75,11 @@ z:<span id="z-acc"></span><br/>
             x.innerHTML = Math.round(alpha);
             y.innerHTML = Math.round(beta);
             z.innerHTML = Math.round(gamma);
-            
+
         }, false);
     } else {
         document.getElementById('acc-error-message').innerHTML = '加速度センサーのデータを取得できません';
     }
-    
+
 </script>
 </html>
