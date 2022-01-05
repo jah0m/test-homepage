@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+Gyro sensor<br/>
+<span id="gyro-error-message"></span><br/>
+alpha:<span id="alpha"></span><br/>
+beta:<span id="beta"></span><br/>
+gamma:<span id="gamma"></span><br/>
+<br/><br/>
+Accelerometer sensor<br/>
+<span id="acc-error-message"></span><br/>
+x:<span id="x-acc"></span><br/>
+y:<span id="y-acc"></span><br/>
+z:<span id="z-acc"></span><br/>
+</body>
+<script>
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', function (event) {
+            var a = document.getElementById('alpha'),
+                b = document.getElementById('beta'),
+                g = document.getElementById('gamma'),
+                alpha = event.alpha,
+                beta = event.beta,
+                gamma = event.gamma;
+ 
+            a.innerHTML = Math.round(alpha);
+            b.innerHTML = Math.round(beta);
+            g.innerHTML = Math.round(gamma);
+        
+        }, false);
+    } else {
+        document.getElementById('gyro-error-message').innerHTML = 'ジャイロセンサーのデータを取得できません';
+    }
+    if (window.DeviceMotionEvent) {
+        window.addEventListener( "devicemotion", function( event ){
+            var x = document.getElementById('x-acc'),
+                y = document.getElementById('y-acc'),
+                z = document.getElementById('z-acc'),
+                x_acc = event.accelerationIncludingGravity.x,
+                y_acc = event.accelerationIncludingGravity.y,
+                z_acc = event.accelerationIncludingGravity.z;
+
+            x.innerHTML = Math.round(alpha);
+            y.innerHTML = Math.round(beta);
+            z.innerHTML = Math.round(gamma);
+            
+        }, false);
+    } else {
+        document.getElementById('acc-error-message').innerHTML = '加速度センサーのデータを取得できません';
+    }
+    
+</script>
+</html>
