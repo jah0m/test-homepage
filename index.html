@@ -32,7 +32,7 @@ motion:<span id="motion"></span><br/>
 <script>
     var direction = "up";
     var dir = document.getElementById('direction');
-
+    var lat = 0, lon = 0;
     function test(){
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
@@ -51,6 +51,23 @@ motion:<span id="motion"></span><br/>
             console.log(typeof DeviceOrientationEvent)
         }
     }
+    //位置情報の取得　経緯度
+    function getGeo(){
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    //返却
+                    lat = position.coords.latitude;
+                    lon = position.coords.longitude;
+                    console.log( position.coords.longitude );
+                    console.log( position.coords.latitude );
+                },
+                function (e) {
+                    throw(e.message);
+                }
+            )
+        }
+    }
 
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function (event) {
@@ -67,8 +84,10 @@ motion:<span id="motion"></span><br/>
 
             if(Math.abs(Math.round(beta)) > 135){
                 direction = "down";
+                getGeo();
             }else if(Math.abs(Math.round(beta)) > 45){
                 direction = "front";
+                getGeo();
             }else{
                 direction = "up";
             }
@@ -89,10 +108,10 @@ motion:<span id="motion"></span><br/>
 
             if(direction=="down" && (x_acc>20 || x_acc<-20)){
                 motion.innerHTML = "グータッチ";
-                alert("グーたっち");
+                alert("グータッチ" + lat + lon);
             }else if(direction=="front" && (z_acc>20 || z_acc<-20)){
                 motion.innerHTML = "グータッチ";
-                alert("ハイタッチ");
+                alert("ハイタッチ" + lat + lon);
             }
             x.innerHTML = x_acc.toFixed(1);
             y.innerHTML = y_acc.toFixed(1);
@@ -102,6 +121,7 @@ motion:<span id="motion"></span><br/>
     } else {
         document.getElementById('acc-error-message').innerHTML = '加速度センサーのデータを取得できません';
     }
+
 
 
 </script>
