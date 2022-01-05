@@ -88,8 +88,11 @@ motion:<span id="motion"></span><br/>
                 z_acc = event.accelerationIncludingGravity.z;
 
             if(direction=="down" && (x_acc>20 || x_acc<-20)){
-                motion.innerHTML = "グー"
-                alert("グー")
+                motion.innerHTML = "グータッチ";
+                alert("グーたっち");
+            }else if(direction=="front" && (z_acc>20 || z_acc<-20)){
+                motion.innerHTML = "グータッチ";
+                alert("ハイタッチ");
             }
             x.innerHTML = x_acc.toFixed(1);
             y.innerHTML = y_acc.toFixed(1);
