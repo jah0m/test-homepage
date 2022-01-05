@@ -33,6 +33,9 @@ motion:<span id="motion"></span><br/>
     var direction = "up";
     var dir = document.getElementById('direction');
     var lat = 0, lon = 0;
+    var date = new Date();
+    var flg; //グータッチ:0 , ハイタッチ:1
+    getGeo();
     function test(){
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
@@ -108,10 +111,26 @@ motion:<span id="motion"></span><br/>
 
             if(direction=="down" && (x_acc>20 || x_acc<-20)){
                 motion.innerHTML = "グータッチ";
-                alert("グータッチ" + lat + lon);
+                flg = 0;
+                timeStamp = date.getTime();
+                var json = {
+                    "flg":flg,
+                    "lat":lat,
+                    "lon":lon,
+                    "timeStamp":timestamp
+                };
+                alert(json);
             }else if(direction=="front" && (z_acc>20 || z_acc<-20)){
-                motion.innerHTML = "グータッチ";
-                alert("ハイタッチ" + lat + lon);
+                motion.innerHTML = "ハイタッチ";
+                flg = 1;
+                timeStamp = date.getTime();
+                var json = {
+                    "flg":flg,
+                    "lat":lat,
+                    "lon":lon,
+                    "timeStamp":timestamp
+                };
+                alert(json);
             }
             x.innerHTML = x_acc.toFixed(1);
             y.innerHTML = y_acc.toFixed(1);
