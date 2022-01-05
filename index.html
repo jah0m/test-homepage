@@ -26,10 +26,13 @@ x:<span id="x-acc"></span><br/>
 y:<span id="y-acc"></span><br/>
 z:<span id="z-acc"></span><br/><br/><br/>
 
-
+direction:<span id="direction"></span><br/>
 motion:<span id="motion"></span><br/>
 </body>
 <script>
+    var direction = "up";
+    var dir = document.getElementById('direction');
+
     function test(){
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
@@ -62,6 +65,14 @@ motion:<span id="motion"></span><br/>
             b.innerHTML = Math.round(beta);
             g.innerHTML = Math.round(gamma);
 
+            if(Math.abs(Math.round(beta)) > 135){
+                direction = "down";
+            }else if(Math.abs(Math.round(beta)) > 45){
+                direction = "front";
+            }else{
+                direction = "up";
+            }
+            dir.innerHTML = direction;
         }, false);
     } else {
         document.getElementById('gyro-error-message').innerHTML = 'ジャイロセンサーのデータを取得できません';
@@ -76,8 +87,7 @@ motion:<span id="motion"></span><br/>
                 y_acc = event.accelerationIncludingGravity.y,
                 z_acc = event.accelerationIncludingGravity.z;
 
-
-            if(x_acc>20 || x_acc<-20){
+            if(direction=="down" && (x_acc>20 || x_acc<-20)){
                 motion.innerHTML = "グー"
                 alert("グー")
             }
@@ -89,6 +99,7 @@ motion:<span id="motion"></span><br/>
     } else {
         document.getElementById('acc-error-message').innerHTML = '加速度センサーのデータを取得できません';
     }
+
 
 </script>
 </html>
