@@ -110,6 +110,7 @@ motion:<span id="motion"></span><br/>
 
             if(direction=="down" && (x_acc>20 || x_acc<-20)){
                 motion.innerHTML = "グータッチ";
+                flg=0;
                 timeStamp = Date.now();
                 var json = {
                     "flg":flg,
