@@ -72,9 +72,9 @@ z:<span id="z-acc"></span><br/>
                 y_acc = event.accelerationIncludingGravity.y,
                 z_acc = event.accelerationIncludingGravity.z;
 
-            x.innerHTML = x_acc ;
-            y.innerHTML = y_acc;
-            z.innerHTML = z_acc;
+            x.innerHTML = x_acc.toFixed(1);
+            y.innerHTML = y_acc.toFixed(1);
+            z.innerHTML = z_acc.toFixed(1);
 
         }, false);
     } else {
