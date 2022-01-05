@@ -25,6 +25,7 @@ Accelerometer sensor<br/>
 x:<span id="x-acc"></span><br/>
 y:<span id="y-acc"></span><br/>
 z:<span id="z-acc"></span><br/>
+Max x:<span id="max-x"></span><br/>
 </body>
 <script>
     function test(){
@@ -65,13 +66,18 @@ z:<span id="z-acc"></span><br/>
     }
     if (window.DeviceMotionEvent) {
         window.addEventListener( "devicemotion", function( event ){
-            var x = document.getElementById('x-acc'),
+            var max_x = document.getElementById('max-x'),
+                x = document.getElementById('x-acc'),
                 y = document.getElementById('y-acc'),
                 z = document.getElementById('z-acc'),
                 x_acc = event.accelerationIncludingGravity.x,
                 y_acc = event.accelerationIncludingGravity.y,
                 z_acc = event.accelerationIncludingGravity.z;
 
+
+            if(x_acc>max_x){
+                max_x.innerHTML = x_acc.toFixed(1)
+            }
             x.innerHTML = x_acc.toFixed(1);
             y.innerHTML = y_acc.toFixed(1);
             z.innerHTML = z_acc.toFixed(1);
