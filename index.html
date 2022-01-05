@@ -62,8 +62,8 @@ motion:<span id="motion"></span><br/>
                     //返却
                     lat = position.coords.latitude;
                     lon = position.coords.longitude;
-                    console.log( position.coords.longitude );
-                    console.log( position.coords.latitude );
+                    //console.log( position.coords.longitude );
+                    //console.log( position.coords.latitude );
                 },
                 function (e) {
                     throw(e.message);
@@ -131,7 +131,7 @@ motion:<span id="motion"></span><br/>
                     "lon":lon,
                     "timeStamp":timeStamp
                 };
-                console(json);
+                console.log(json);
                 alert(json);
             }
             x.innerHTML = x_acc.toFixed(1);
