@@ -117,8 +117,9 @@ motion:<span id="motion"></span><br/>
                     "flg":flg,
                     "lat":lat,
                     "lon":lon,
-                    "timeStamp":timestamp
+                    "timeStamp":timeStamp
                 };
+                console.log(json);
                 alert(json);
             }else if(direction=="front" && (z_acc>20 || z_acc<-20)){
                 motion.innerHTML = "ハイタッチ";
@@ -128,8 +129,9 @@ motion:<span id="motion"></span><br/>
                     "flg":flg,
                     "lat":lat,
                     "lon":lon,
-                    "timeStamp":timestamp
+                    "timeStamp":timeStamp
                 };
+                console(json);
                 alert(json);
             }
             x.innerHTML = x_acc.toFixed(1);
