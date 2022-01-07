@@ -118,6 +118,7 @@ motion:<span id="motion"></span><br/>
                     "lon":lon,
                     "timeStamp":timeStamp
                 };
+                JSON.stringify(json);
                 console.log(json);
                 alert(json);
             }else if(direction=="front" && (z_acc>20 || z_acc<-20)){
