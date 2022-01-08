@@ -12,7 +12,7 @@
 <div>
     <h1>Request Gyroscope Permission</h1><br/>
     Click 'yes' to access Gyroscope Data <br/>
-    <input id="btn1" type="button" onclick="test();" value="Yes"/>
+    <input id="btn1" type="button" onclick="getPermission();" value="Yes"/>
 </div>
 <div>
     <h1>仮データを生成</h1><br/>
@@ -62,7 +62,9 @@ motion:<span id="motion"></span><br/>
         alert(json);
     }
     window.onload = function(){
-        alert("getPrimisson");
+        getPermission();
+    }
+    function getPermission(){
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
                 .then(permissionState => {
@@ -80,7 +82,6 @@ motion:<span id="motion"></span><br/>
             console.log(typeof DeviceOrientationEvent)
         }
     }
-
     //位置情報の取得　経緯度
     function getGeo(){
         if(navigator.geolocation) {
