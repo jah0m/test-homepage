@@ -44,12 +44,10 @@ motion:<span id="motion"></span><br/>
         flg=0;
         timeStamp = Date.now();
         var json = {
-            "motion": [
-                {"flg":flg,
-                "lat":lat,
-                "lon":lon,
-                "timeStamp":timeStamp}
-            ]
+            "flg":flg,
+            "lat":lat,
+            "lon":lon,
+            "timeStamp":timeStamp
         };
         json = JSON.stringify(json);
         console.log(json);
@@ -63,22 +61,25 @@ motion:<span id="motion"></span><br/>
         })
         alert(json);
     }
-    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission()
-            .then(permissionState => {
-                if (permissionState === 'granted') {
-                    // handle data
-                } else {
-                    // handle denied
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            });
-    } else {
-        // han
-        console.log(typeof DeviceOrientationEvent)
+    window.onload = function(){
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission()
+                .then(permissionState => {
+                    if (permissionState === 'granted') {
+                        // handle data
+                    } else {
+                        // handle denied
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        } else {
+            // han
+            console.log(typeof DeviceOrientationEvent)
+        }
     }
+
     //位置情報の取得　経緯度
     function getGeo(){
         if(navigator.geolocation) {
