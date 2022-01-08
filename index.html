@@ -6,12 +6,17 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 <div>
     <h1>Request Gyroscope Permission</h1><br/>
     Click 'yes' to access Gyroscope Data <br/>
     <input id="btn1" type="button" onclick="test();" value="Yes"/>
+</div>
+<div>
+    <h1>仮データを生成</h1><br/>
+    <input id="btn2" type="button" onclick="getFakeDate();" value="getFakeData"/>
 </div>
 <br/><br/>
 Gyro sensor<br/>
@@ -35,23 +40,44 @@ motion:<span id="motion"></span><br/>
     var lat = 0, lon = 0;
     var flg; //グータッチ:0 , ハイタッチ:1
     getGeo();
-    function test(){
-        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-            DeviceOrientationEvent.requestPermission()
-                .then(permissionState => {
-                    if (permissionState === 'granted') {
-                        // handle data
-                    } else {
-                        // handle denied
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
-                });
-        } else {
-            // han
-            console.log(typeof DeviceOrientationEvent)
-        }
+    function getFakeDate(){
+        flg=0;
+        timeStamp = Date.now();
+        var json = {
+            "motion": [
+                {"flg":flg,
+                "lat":lat,
+                "lon":lon,
+                "timeStamp":timeStamp}
+            ]
+        };
+        json = JSON.stringify(json);
+        console.log(json);
+        jQuery.ajax({
+            //POST通信
+            type: "post",
+            //ここでデータの送信先URLを指定します。
+            url: "/postgmail",
+            dataType: "json",
+            data: json,
+        })
+        alert(json);
+    }
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+            .then(permissionState => {
+                if (permissionState === 'granted') {
+                    // handle data
+                } else {
+                    // handle denied
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    } else {
+        // han
+        console.log(typeof DeviceOrientationEvent)
     }
     //位置情報の取得　経緯度
     function getGeo(){
