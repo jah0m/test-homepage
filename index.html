@@ -62,6 +62,7 @@ motion:<span id="motion"></span><br/>
         alert(json);
     }
     window.onload = function(){
+        alert("getPrimisson");
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
                 .then(permissionState => {
